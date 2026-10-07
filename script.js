@@ -1,6 +1,6 @@
 /* =========================================================
    INVITACIÓN OSCAR ANDRÉS · 30 AÑOS
-   JavaScript principal
+   JavaScript de Animaciones y Efectos Mágicos
    ========================================================= */
 
 const EVENT_DATE = new Date("2026-10-10T19:00:00-05:00").getTime();
@@ -8,17 +8,107 @@ const WHATSAPP_PHONE = "573183624235";
 
 document.documentElement.classList.add("js");
 
-document.addEventListener("DOMContentLoaded", () => {
-
+function startAnimations() {
+  initMagicParticles();
+  initMagicSparks();
+  initSectionSparkles();
+  initRandomSparkleBursts();
   initVideo();
   initCountdown();
   initRevealAnimations();
   initGallery();
   initRsvp();
-});
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", startAnimations);
+} else {
+  startAnimations();
+}
+
+/* ---------- PARTÍCULAS DORADAS FLOTANTES ---------- */
+function initMagicParticles() {
+  let container = document.querySelector(".magic-particles");
+  if (!container) {
+    container = document.createElement("div");
+    container.className = "magic-particles";
+    document.body.prepend(container);
+  }
+
+  container.innerHTML = "";
+  const count = window.innerWidth < 720 ? 25 : 40;
+
+  for (let i = 0; i < count; i++) {
+    const particle = document.createElement("span");
+    particle.className = "magic-particle";
+    particle.style.setProperty("--size", `${(Math.random() * 2 + 1.5).toFixed(1)}px`);
+    particle.style.setProperty("--left", `${(Math.random() * 100).toFixed(1)}%`);
+    particle.style.setProperty("--top", `${(Math.random() * 100).toFixed(1)}%`);
+    particle.style.setProperty("--duration", `${(Math.random() * 4 + 4).toFixed(1)}s`);
+    particle.style.setProperty("--delay", `${(-Math.random() * 6).toFixed(1)}s`);
+    particle.style.setProperty("--drift", `${(Math.random() * 30 - 15).toFixed(1)}px`);
+    container.appendChild(particle);
+  }
+}
+
+/* ---------- DESTELLOS TIPO ESTRELLA (CRUZ) ---------- */
+function initMagicSparks() {
+  const container = document.querySelector(".magic-particles");
+  if (!container) return;
+
+  const count = window.innerWidth < 720 ? 12 : 20;
+
+  for (let i = 0; i < count; i++) {
+    const spark = document.createElement("span");
+    spark.className = "magic-spark";
+    spark.style.setProperty("--spark-size", `${(Math.random() * 3 + 3).toFixed(1)}px`);
+    spark.style.setProperty("--spark-left", `${(Math.random() * 94 + 3).toFixed(1)}%`);
+    spark.style.setProperty("--spark-top", `${(Math.random() * 92 + 4).toFixed(1)}%`);
+    spark.style.setProperty("--spark-duration", `${(Math.random() * 3 + 3.5).toFixed(1)}s`);
+    spark.style.setProperty("--spark-delay", `${(-Math.random() * 6).toFixed(1)}s`);
+    container.appendChild(spark);
+  }
+}
+
+/* ---------- DESTELLOS EN SECCIONES ---------- */
+function initSectionSparkles() {
+  const sections = document.querySelectorAll("section, header");
+
+  sections.forEach((section) => {
+    if (section.querySelector(".sparkle-light")) return;
+    const amount = 2;
+    for (let i = 0; i < amount; i++) {
+      const sparkle = document.createElement("span");
+      sparkle.className = "sparkle-light";
+      sparkle.style.left = `${15 + Math.random() * 70}%`;
+      sparkle.style.top = `${20 + Math.random() * 60}%`;
+      sparkle.style.setProperty("--blink", `${(3.5 + Math.random() * 3).toFixed(1)}s`);
+      sparkle.style.setProperty("--delay", `${(-Math.random() * 4).toFixed(1)}s`);
+      section.appendChild(sparkle);
+    }
+  });
+}
+
+/* ---------- FLASH OCASIONAL EXTRA ---------- */
+function initRandomSparkleBursts() {
+  const container = document.querySelector(".magic-particles");
+  if (!container) return;
+
+  setInterval(() => {
+    if (document.hidden) return;
+    const burst = document.createElement("span");
+    burst.className = "magic-spark magic-spark-burst";
+    burst.style.setProperty("--spark-size", `${(Math.random() * 4 + 4).toFixed(1)}px`);
+    burst.style.left = `${10 + Math.random() * 80}%`;
+    burst.style.top = `${10 + Math.random() * 80}%`;
+    burst.style.setProperty("--burst-duration", "1.5s");
+    container.appendChild(burst);
+
+    setTimeout(() => burst.remove(), 1600);
+  }, 3000);
+}
 
 /* ---------- VIDEO ---------- */
-
 function initVideo() {
   const video = document.getElementById("invitacionVideo");
   const playButton = document.getElementById("videoPlayBtn");
@@ -27,93 +117,57 @@ function initVideo() {
 
   playButton.addEventListener("click", async () => {
     video.muted = false;
-
     try {
       await video.play();
       playButton.classList.add("hidden");
-    } catch (error) {
-      console.warn("No fue posible iniciar el video con sonido.", error);
+    } catch (e) {
       video.muted = true;
       await video.play();
       playButton.classList.add("hidden");
     }
   });
-
-  video.addEventListener("play", () => {
-    playButton.classList.add("hidden");
-  });
-
-  video.addEventListener("ended", () => {
-    playButton.classList.remove("hidden");
-  });
 }
 
 /* ---------- CUENTA REGRESIVA ---------- */
-
 function initCountdown() {
-  const elements = {
-    days: document.getElementById("days"),
-    hours: document.getElementById("hours"),
-    minutes: document.getElementById("minutes"),
-    seconds: document.getElementById("seconds")
-  };
+  const daysEl = document.getElementById("days");
+  const hoursEl = document.getElementById("hours");
+  const minutesEl = document.getElementById("minutes");
+  const secondsEl = document.getElementById("seconds");
 
-  if (Object.values(elements).some((element) => !element)) return;
+  if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
-  function updateCountdown() {
-    const difference = EVENT_DATE - Date.now();
+  function update() {
+    const diff = EVENT_DATE - Date.now();
+    if (diff <= 0) return;
 
-    if (difference <= 0) {
-      elements.days.textContent = "00";
-      elements.hours.textContent = "00";
-      elements.minutes.textContent = "00";
-      elements.seconds.textContent = "00";
-      return;
-    }
-
-    const days = Math.floor(difference / 86400000);
-    const hours = Math.floor((difference % 86400000) / 3600000);
-    const minutes = Math.floor((difference % 3600000) / 60000);
-    const seconds = Math.floor((difference % 60000) / 1000);
-
-    elements.days.textContent = String(days).padStart(2, "0");
-    elements.hours.textContent = String(hours).padStart(2, "0");
-    elements.minutes.textContent = String(minutes).padStart(2, "0");
-    elements.seconds.textContent = String(seconds).padStart(2, "0");
+    daysEl.textContent = String(Math.floor(diff / 86400000)).padStart(2, "0");
+    hoursEl.textContent = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, "0");
+    minutesEl.textContent = String(Math.floor((diff % 3600000) / 60000)).padStart(2, "0");
+    secondsEl.textContent = String(Math.floor((diff % 60000) / 1000)).padStart(2, "0");
   }
 
-  updateCountdown();
-  window.setInterval(updateCountdown, 1000);
+  update();
+  setInterval(update, 1000);
 }
 
 /* ---------- ANIMACIONES DE ENTRADA ---------- */
-
 function initRevealAnimations() {
   const elements = document.querySelectorAll(".reveal");
-
   if (!elements.length) return;
 
-  if (!("IntersectionObserver" in window)) {
-    elements.forEach((element) => element.classList.add("visible"));
-    return;
-  }
-
-  const observer = new IntersectionObserver(
-    (entries, currentObserver) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
         entry.target.classList.add("visible");
-        currentObserver.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.12 }
-  );
+      }
+    });
+  }, { threshold: 0.1 });
 
-  elements.forEach((element) => observer.observe(element));
+  elements.forEach((el) => observer.observe(el));
 }
 
 /* ---------- GALERÍA / LIGHTBOX ---------- */
-
 function initGallery() {
   const visibleImages = Array.from(document.querySelectorAll(".gallery img"));
   const hiddenImages = Array.from(document.querySelectorAll(".hidden-gallery img"));
@@ -157,74 +211,28 @@ function initGallery() {
   closeButton?.addEventListener("click", closeLightbox);
   previousButton?.addEventListener("click", () => showImage(currentIndex - 1));
   nextButton?.addEventListener("click", () => showImage(currentIndex + 1));
-
-  lightbox.addEventListener("click", (event) => {
-    if (event.target === lightbox) closeLightbox();
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (!lightbox.classList.contains("active")) return;
-
-    if (event.key === "Escape") closeLightbox();
-    if (event.key === "ArrowLeft") showImage(currentIndex - 1);
-    if (event.key === "ArrowRight") showImage(currentIndex + 1);
-  });
 }
 
-/* ---------- CONFIRMACIÓN POR WHATSAPP ---------- */
-
+/* ---------- RSVP ---------- */
 function initRsvp() {
   const modal = document.getElementById("rsvpModal");
-  const openButton = document.getElementById("openRsvp");
-  const closeButton = document.getElementById("closeRsvp");
+  const openBtn = document.getElementById("openRsvp");
+  const closeBtn = document.getElementById("closeRsvp");
   const form = document.getElementById("rsvpForm");
 
-  if (!modal || !openButton || !closeButton || !form) return;
+  if (!modal || !openBtn) return;
 
-  function openModal() {
-    modal.classList.add("show");
-    modal.setAttribute("aria-hidden", "false");
-    document.getElementById("guestName")?.focus();
-  }
+  openBtn.addEventListener("click", () => modal.classList.add("show"));
+  closeBtn?.addEventListener("click", () => modal.classList.remove("show"));
 
-  function closeModal() {
-    modal.classList.remove("show");
-    modal.setAttribute("aria-hidden", "true");
-  }
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const name = document.getElementById("guestName")?.value || "";
+    const attendance = document.getElementById("attendance")?.value || "";
+    const guests = document.getElementById("guests")?.value || "1";
+    const message = document.getElementById("message")?.value || "";
 
-  openButton.addEventListener("click", openModal);
-  closeButton.addEventListener("click", closeModal);
-
-  modal.addEventListener("click", (event) => {
-    if (event.target === modal) closeModal();
+    const text = `✨ *Confirmación Oscar Andrés* ✨\n\n*Nombre:* ${name}\n*Asistencia:* ${attendance}\n*Personas:* ${guests}\n${message ? `*Mensaje:* ${message}` : ""}`;
+    window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(text)}`, "_blank");
   });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && modal.classList.contains("show")) {
-      closeModal();
-    }
-  });
-
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const name = document.getElementById("guestName").value.trim();
-    const attendance = document.getElementById("attendance").value;
-    const guests = document.getElementById("guests").value;
-    const message = document.getElementById("message").value.trim();
-
-    const whatsappMessage = [
-      "✨ *Confirmación de asistencia · Oscar Andrés* ✨",
-      "",
-      `*Nombre:* ${name}`,
-      `*Asistencia:* ${attendance}`,
-      `*Número de personas:* ${guests}`,
-      message ? `*Mensaje:* ${message}` : ""
-    ].filter(Boolean).join("\n");
-
-    const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(whatsappMessage)}`;
-
-    window.open(whatsappUrl, "_blank", "noopener,noreferrer");
-  });
-
 }

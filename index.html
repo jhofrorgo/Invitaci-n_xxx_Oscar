@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0d14">
+  <meta name="description" content="Invitación a la celebración de los 30 años de Oscar Andrés Chaparro Neira.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Oscar Andrés · 30 años">
+  <meta property="og:description" content="Una noche especial está por comenzar. Acompáñame a celebrar mis 30 años.">
+    <title>Oscar Andrés · 30 años</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <div class="magic-particles" aria-hidden="true"></div>
+
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="crest" aria-hidden="true">✦</div>
+      <p class="eyebrow">UNA NOCHE ESPECIAL</p>
+      <p class="hero-pretitle">Oscar Andrés</p>
+      <h1>30 <span>años</span></h1>
+      <div class="gold-line"><span>✦</span></div>
+      <p class="hero-text">Una nueva década comienza.<br>Y quiero celebrarla contigo.</p>
+      <a class="btn btn-primary" href="#evento">Descubrir la invitación <span>↓</span></a>
+    </div>
+    <div class="scroll-hint" aria-hidden="true">DESLIZA</div>
+  </header>
+
+  <main>
+    <section id="invitacion" class="section intro">
+      <div class="section-inner reveal">
+        <p class="section-kicker">UNA NOCHE PARA RECORDAR</p>
+        <h2>Hay momentos que merecen<br><em>su propia historia</em></h2>
+        <p class="lead">
+          Cumplir 30 es abrir un nuevo capítulo lleno de experiencias,
+          personas increíbles y nuevas aventuras. Esta vez, quiero escribir
+          una de esas historias contigo.
+        </p>
+        <div class="magic-divider" aria-hidden="true">⚡ ─── ✦ ─── ⚡</div>
+      </div>
+    </section>
+
+    <section class="photo-break" aria-label="Video de la celebración">
+      <video id="invitacionVideo" playsinline muted preload="metadata" controls poster="assets/hero.jpg">
+        <source src="assets/video.mp4" type="video/mp4">
+        Tu navegador no soporta la reproducción de video.
+      </video>
+      <button id="videoPlayBtn" class="video-play-btn" type="button" aria-label="Reproducir video con sonido">▶</button>
+      <div class="video-caption">Una noche · Una historia · 30 años</div>
+    </section>
+
+    <section id="evento" class="section event">
+      <div class="event-card reveal">
+        <div class="section-symbol" aria-hidden="true">✦</div>
+        <p class="section-kicker">EL MOMENTO HA LLEGADO</p>
+        <h2>La celebración</h2>
+        <p class="event-intro">Guarda esta fecha. Te espero para brindar, compartir y celebrar juntos.</p>
+
+        <div class="event-grid">
+          <article class="event-item">
+            <span class="icon">◈</span>
+            <strong>Fecha</strong>
+            <p>Sábado, 10 de octubre de 2026</p>
+          </article>
+
+          <article class="event-item">
+            <span class="icon">◷</span>
+            <strong>Hora</strong>
+            <p>7:00 p. m.</p>
+          </article>
+
+          <article class="event-item wide">
+            <span class="icon">⌖</span>
+            <strong>Lugar</strong>
+            <p>Salón Social<br>Conjunto Residencial Prados de Miraflores</p>
+            <small>Calle 17 No. 1W-50</small>
+            <a
+              class="btn btn-outline"
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://maps.app.goo.gl/oWN6fLCe51RFaXKYA"
+            >Ver ubicación ↗</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="countdown-section">
+      <div class="countdown-bg"></div>
+      <div class="countdown-content reveal">
+        <p class="section-kicker light">LA CUENTA REGRESIVA COMIENZA</p>
+        <h2>Faltan...</h2>
+        <div class="countdown" aria-label="Cuenta regresiva">
+          <div><span id="days">00</span><small>Días</small></div>
+          <div><span id="hours">00</span><small>Horas</small></div>
+          <div><span id="minutes">00</span><small>Minutos</small></div>
+          <div><span id="seconds">00</span><small>Segundos</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery-section">
+      <div class="center reveal">
+        <p class="section-kicker">MOMENTOS</p>
+        <h2>Recuerdos que<br><em>siguen brillando</em></h2>
+        <p class="lead gallery-intro">Las fotografías son parte de la historia; puedes reemplazarlas por tus favoritas en la carpeta assets.</p>
+      </div>
+
+      <div class="gallery">
+        <img src="assets/forest.jpg" alt="Momento especial" loading="lazy">
+        <img src="assets/portrait.jpg" alt="Retrato" loading="lazy">
+        <img src="assets/family.jpg" alt="Momento en familia" loading="lazy">
+      </div>
+
+      <div class="center gallery-action">
+        <button id="openGalleryBtn" type="button" class="btn btn-primary">Ver galería completa ✦</button>
+      </div>
+
+      <div class="hidden-gallery" aria-hidden="true">
+        <img src="assets/oscar.jpg" alt="Oscar">
+        <img src="assets/foto2.jpg" alt="Momento especial">
+        <img src="assets/car1.jpg" alt="Momento especial">
+        <img src="assets/car2.jpg" alt="Momento especial">
+        <img src="assets/car3.jpg" alt="Momento especial">
+        <img src="assets/car4.jpg" alt="Momento especial">
+        <img src="assets/car5.jpg" alt="Momento especial">
+        <img src="assets/car6.jpg" alt="Momento especial">
+        <img src="assets/car7.jpg" alt="Momento especial">
+        <img src="assets/car8.jpg" alt="Momento especial">
+        <img src="assets/car9.jpg" alt="Momento especial">
+        <img src="assets/car10.jpg" alt="Momento especial">
+        <img src="assets/car11.jpg" alt="Momento especial">
+        <img src="assets/car12.jpg" alt="Momento especial">
+      </div>
+    </section>
+
+    <section class="magic-section">
+      <div class="magic-card reveal">
+        <div class="wand" aria-hidden="true">⚡</div>
+        <p class="section-kicker">UN TOQUE DE MAGIA</p>
+        <h2>La noche tiene<br><em>algo especial</em></h2>
+        <p>
+          Una celebración elegante, una buena copa, música, amigos
+          y muchas historias por contar. Porque algunas noches parecen
+          sacadas de un libro de magia.
+        </p>
+        <div class="magic-quote">“La felicidad se puede encontrar incluso en los momentos más oscuros, si uno recuerda encender la luz.”</div>
+      </div>
+    </section>
+
+    <section class="section details">
+      <div class="details-card reveal">
+        <p class="section-kicker">PARA TENERLO PRESENTE</p>
+        <h2>Nos vemos el<br><em>10 de octubre</em></h2>
+        <div class="details-list">
+          <div><span>01</span><strong>Ven con ganas de celebrar</strong><p>La noche es para compartir y disfrutar.</p></div>
+          <div><span>02</span><strong>Guarda la fecha</strong><p>Sábado · 10 de octubre · 7:00 p. m.</p></div>
+          <div><span>03</span><strong>Confirma tu asistencia</strong><p>Ayúdame a preparar todo para recibirte.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="rsvp">
+      <div class="rsvp-card reveal">
+        <div class="crest small" aria-hidden="true">✦</div>
+        <p class="section-kicker">TU PRESENCIA HACE LA DIFERENCIA</p>
+        <h2>¿Nos acompañas?</h2>
+        <p>Será un gusto celebrar mis 30 años contigo.</p>
+        <button id="openRsvp" class="btn btn-primary" type="button">Confirmar asistencia ✦</button>
+        <p class="rsvp-note">La confirmación será enviada directamente por WhatsApp.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>✦ Gracias por ser parte de esta nueva historia ✦</p>
+    <strong>OSCAR ANDRÉS CHAPARRO NEIRA · 30 AÑOS · 10.10.2026</strong>
+  </footer>
+
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="lightbox-close" type="button" aria-label="Cerrar">×</button>
+    <button class="lightbox-prev" type="button" aria-label="Anterior">‹</button>
+    <img id="lightbox-img" src="" alt="">
+    <button class="lightbox-next" type="button" aria-label="Siguiente">›</button>
+  </div>
+
+  <div id="rsvpModal" class="modal" aria-hidden="true">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="rsvpTitle">
+      <button id="closeRsvp" class="close" type="button" aria-label="Cerrar">×</button>
+      <p class="section-kicker">CONFIRMACIÓN DE ASISTENCIA</p>
+      <h2 id="rsvpTitle">¡Qué alegría contar contigo!</h2>
+
+      <form id="rsvpForm">
+        <label for="guestName">Tu nombre
+          <input required id="guestName" name="guestName" type="text" placeholder="Escribe tu nombre">
+        </label>
+
+        <label for="attendance">¿Asistirás?
+          <select id="attendance" name="attendance" required>
+            <option value="Sí, asistiré">Sí, asistiré ✨</option>
+            <option value="No podré asistir">No podré asistir</option>
+          </select>
+        </label>
+
+        <label for="guests">Número de personas
+          <input id="guests" name="guests" type="number" min="1" max="10" value="1">
+        </label>
+
+        <label for="message">Mensaje para Oscar (opcional)
+          <textarea id="message" name="message" rows="3" placeholder="Escribe un mensaje..."></textarea>
+        </label>
+
+        <button class="btn btn-primary" type="submit">Enviar confirmación por WhatsApp</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>
